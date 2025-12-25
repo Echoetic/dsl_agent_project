@@ -106,12 +106,19 @@
 ## 3 总体设计
 
 &emsp;&emsp;本系统采用分层架构设计，从底层到顶层依次为：词法分析层、语法分析层、解释执行层、意图识别层和Web服务层。各层之间通过定义良好的接口进行通信，实现了高内聚、低耦合的设计目标。
+![系统总体架构图](./figures/pic1.png)
+<center>
 
-【此处插入图片：系统总体架构图，展示五个子系统的层次关系和数据流向。图中应包含：用户界面层（Web浏览器）、Web服务层（Flask应用）、解释执行层（Interpreter）、语法分析层（Parser）、词法分析层（Lexer）、意图识别层（IntentRecognizer + Gemini API），以及它们之间的箭头表示数据流动方向。】
+*图1：系统总体架构图*
+</center>
 
 &emsp;&emsp;系统的核心处理流程如下：首先，用户通过Web界面发送消息；Web服务层接收请求后，根据会话ID找到对应的解释器实例；解释器将用户输入传递给意图识别器，获取用户的意图；然后根据当前步骤的分支配置，确定下一个要执行的步骤；执行该步骤的Speak语句，生成回复文本；最后将回复返回给Web服务层，再由Web服务层发送给用户。
 
-【此处插入图片：消息处理时序图，展示一次完整的用户交互过程中各组件之间的调用关系。】
+![消息处理时序图](./figures/pic2.png)
+<center>
+
+*图2：消息处理时序图*
+</center>
 
 各子系统的职责划分如下：
 
@@ -168,7 +175,12 @@ class TokenType(Enum):
 
 &emsp;&emsp;Lexer类的核心方法是tokenize()，它使用一个while循环逐字符扫描源代码。对于不同类型的字符，采用不同的处理策略：遇到字母时，尝试识别关键字或标识符；遇到数字时，识别数字字面量；遇到引号时，识别字符串字面量；遇到$符号时，识别变量名；遇到#符号时，跳过注释直到行尾。
 
-【此处插入图片：词法分析器类图，展示TokenType枚举、Token类和Lexer类的属性与方法。】
+![词法分析器类图](./figures/pic3.png)
+<center>
+
+*图3：词法分析器类图*
+</center>
+
 
 ### 4.2 语法分析子系统详细设计
 
@@ -219,7 +231,11 @@ def parse_step(self) -> Step:
 
 &emsp;&emsp;这段代码首先期望一个STEP关键字和一个标识符作为步骤名，然后循环解析该步骤内的所有语句，直到遇到下一个STEP关键字或文件结束。
 
-【此处插入图片：抽象语法树示例，展示一个简单脚本解析后的AST结构。】
+![抽象语法树示例](./figures/pic4.png)
+<center>
+
+*图4：抽象语法树示例*
+</center>
 
 ### 4.3 解释执行子系统详细设计
 
@@ -250,7 +266,12 @@ class ExecutionContext:
 
 &emsp;&emsp;解释器的执行流程可以用状态机来描述。初始状态是RUNNING，执行Speak语句后输出文本，遇到Listen语句后转入WAITING_INPUT状态等待用户输入，收到输入后根据Branch配置跳转到下一个步骤，继续执行直到遇到Exit语句转入FINISHED状态。
 
-【此处插入图片：解释器状态机图，展示各状态之间的转换条件。】
+![解释器状态机图](./figures/pic5.png)
+<center>
+
+*图5：解释器状态机图*
+</center>
+
 
 ### 4.4 意图识别子系统详细设计
 
@@ -281,7 +302,11 @@ def recognize_intent(self, user_input: str, available_intents: List[str]) -> Int
 
 &emsp;&emsp;MockIntentRecognizer用于测试和API不可用时的后备方案，它通过简单的关键词匹配来识别意图。
 
-【此处插入图片：意图识别流程图，展示从用户输入到意图输出的处理过程。】
+![意图识别流程图](./figures/pic6.png)
+<center>
+
+*图6：意图识别流程图*
+</center>
 
 ### 4.5 Web服务子系统详细设计
 
@@ -485,7 +510,17 @@ python tests/html_report.py
 
 ### 5.5 测试结果
 
-【此处插入图片：HTML测试报告截图，展示测试统计摘要和饼图。】
+![HTML测试统计摘要](./figures/pic7.png)
+<center>
+
+*图7：HTML测试统计摘要*
+</center>
+
+![结果分布与各模块情况](./figures/pic8.png)
+<center>
+
+*图8：结果分布与各模块情况*
+</center>
 
 &emsp;&emsp;测试执行结果汇总如下：
 
