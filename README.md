@@ -62,7 +62,8 @@ dsl_agent_project/
 │   ├── __init__.py
 │   ├── test_dsl.py       # 单元测试
 │   ├── stubs.py          # 测试桩
-│   └── run_tests.py      # 测试驱动
+│   ├── run_htmltest.py   # 测试驱动（HTML）
+│   └── run_tests.py      # 测试驱动（Json）
 └── data/                 # 测试数据
     └── test_data.json
 ```
