@@ -1,20 +1,5 @@
-<br><br><br><br>
-<h1 align="center"> 2025《程序设计实践》课程</h1>
-<h1 align="center">大作业项目文档</h1>
-<br><br><br><br>
-<center>
-
-**姓名：** &emsp;张泽珅&emsp;&emsp;
-
-**学号：** 2023212862
-
-**班级：** 2023211320
-</center>
-<br><br><br><br>
-<br><br>
 
 ---
-
 ## 目录
 
 [1. 前言](#1-前言)
@@ -789,87 +774,56 @@ def get_identifier_type(self, word):
 &emsp;&emsp;以下是本项目开发过程中的GIT提交日志（部分）：
 
 ```
-commit a1b2c3d4 (HEAD -> main)
-Author: [姓名] <email@example.com>
-Date:   Wed Dec 25 18:30:00 2024 +0800
+commit 669d856c6267815b360780035633ebfcb37eb2d1
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 00:37:38 2025 +0800
 
-    docs: 完成项目文档撰写
+    Adjust and insert figures
 
-commit e5f6g7h8
-Author: [姓名] <email@example.com>
-Date:   Wed Dec 25 16:00:00 2024 +0800
+commit 480b36ab64d919b9a5bd7ae7103fc8363274f318
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 00:10:44 2025 +0800
 
-    test: 添加HTML测试报告生成器，完善测试用例
+    Add Figure
 
-commit i9j0k1l2
-Author: [姓名] <email@example.com>
-Date:   Wed Dec 25 14:00:00 2024 +0800
+commit 980055c0e9d7d9d4d5e3c2b04978ec9f7bc4e8e2
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 23:21:56 2025 +0800
 
-    feat: 完成Web界面开发，添加响应式CSS样式
+    Update README
 
-commit m3n4o5p6
-Author: [姓名] <email@example.com>
-Date:   Wed Dec 25 11:00:00 2024 +0800
+commit 110400188795417e64238708a1e145f304a82158
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 23:00:22 2025 +0800
 
-    feat: 实现Flask Web服务，添加会话管理功能
+    Add Report
 
-commit q7r8s9t0
-Author: [姓名] <email@example.com>
-Date:   Tue Dec 24 20:00:00 2024 +0800
+commit 1acae1df280d36c54a5d1f0a15c2f849f52bd184
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 22:29:24 2025 +0800
 
-    feat: 完成剧院售票场景脚本编写 (theater.dsl)
+    Update index.html
 
-commit u1v2w3x4
-Author: [姓名] <email@example.com>
-Date:   Tue Dec 24 16:00:00 2024 +0800
+commit 0499a343966db5443ab08477d7701c84c3099f68
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 22:12:33 2025 +0800
 
-    feat: 完成餐厅点餐场景脚本编写 (restaurant.dsl)
+    Add HTML test
 
-commit y5z6a7b8
-Author: [姓名] <email@example.com>
-Date:   Tue Dec 24 12:00:00 2024 +0800
+commit 27f4317a415b1aed167470651892348b3f7fbec4
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 21:48:44 2025 +0800
 
-    feat: 完成医院导诊场景脚本编写 (hospital.dsl)
+    Update README
 
-commit c9d0e1f2
-Author: [姓名] <email@example.com>
-Date:   Mon Dec 23 22:00:00 2024 +0800
+commit 06708b8ed550c9ea0747ba241c0f7c5f6e6a956d
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Thu Dec 25 21:39:10 2025 +0800
 
-    feat: 实现Gemini API意图识别器，添加关键词匹配后备方案
+    first commit
 
-commit g3h4i5j6
-Author: [姓名] <email@example.com>
-Date:   Mon Dec 23 18:00:00 2024 +0800
-
-    feat: 完成解释器核心逻辑，支持变量替换和表达式计算
-
-commit k7l8m9n0
-Author: [姓名] <email@example.com>
-Date:   Mon Dec 23 14:00:00 2024 +0800
-
-    feat: 实现语法分析器，支持所有DSL语句类型
-
-commit o1p2q3r4
-Author: [姓名] <email@example.com>
-Date:   Sun Dec 22 20:00:00 2024 +0800
-
-    feat: 完成AST节点类定义
-
-commit s5t6u7v8
-Author: [姓名] <email@example.com>
-Date:   Sun Dec 22 16:00:00 2024 +0800
-
-    feat: 实现词法分析器，支持关键字、字符串、变量等Token
-
-commit w9x0y1z2
-Author: [姓名] <email@example.com>
-Date:   Sun Dec 22 10:00:00 2024 +0800
-
-    init: 项目初始化，创建目录结构
 
 ```
-
-【此处可补充完整的git log --oneline输出】
 
 ---
 
