@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSL智能Agent系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <div class="hero-content">
+                <h1>🤖 DSL智能Agent系统</h1>
+                <p class="subtitle">基于领域特定语言的多业务场景智能客服</p>
+                <p class="description">
+                    本系统采用自定义DSL脚本语言描述业务流程，结合Gemini大语言模型进行意图识别，
+                    实现灵活可配置的智能对话机器人。
+                </p>
+            </div>
+        </header>
+
+        <main class="scenarios">
+            <h2>选择业务场景</h2>
+            <div class="scenario-grid">
+                <a href="/chat/hospital" class="scenario-card hospital">
+                    <div class="card-icon">🏥</div>
+                    <h3>医院智能客服</h3>
+                    <p>看病挂号、缴费、取药一站式服务</p>
+                    <ul class="features">
+                        <li>智能科室推荐</li>
+                        <li>在线预约挂号</li>
+                        <li>费用查询缴纳</li>
+                        <li>取药进度查询</li>
+                    </ul>
+                    <span class="btn">开始对话 →</span>
+                </a>
+
+                <a href="/chat/restaurant" class="scenario-card restaurant">
+                    <div class="card-icon">🍽️</div>
+                    <h3>餐厅点餐助手</h3>
+                    <p>智能点餐、菜品推荐、便捷付账</p>
+                    <ul class="features">
+                        <li>菜单浏览推荐</li>
+                        <li>语音点餐下单</li>
+                        <li>订单管理修改</li>
+                        <li>多种支付方式</li>
+                    </ul>
+                    <span class="btn">开始对话 →</span>
+                </a>
+
+                <a href="/chat/theater" class="scenario-card theater">
+                    <div class="card-icon">🎭</div>
+                    <h3>剧院售票服务</h3>
+                    <p>演出查询、在线购票、便捷取票</p>
+                    <ul class="features">
+                        <li>演出信息查询</li>
+                        <li>座位选择购票</li>
+                        <li>电子票取票</li>
+                        <li>会员积分服务</li>
+                    </ul>
+                    <span class="btn">开始对话 →</span>
+                </a>
+            </div>
+        </main>
+
+        <section class="tech-info">
+            <h2>技术架构</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🔤 词法分析器 (Lexer)</h4>
+                    <p>将DSL脚本文本转换为Token序列，支持关键字、字符串、数字、变量等多种词法元素。</p>
+                </div>
+                <div class="tech-card">
+                    <h4>📊 语法分析器 (Parser)</h4>
+                    <p>基于递归下降算法，将Token序列解析为抽象语法树(AST)，支持表达式解析和错误恢复。</p>
+                </div>
+                <div class="tech-card">
+                    <h4>⚙️ 解释器 (Interpreter)</h4>
+                    <p>遍历执行AST，管理会话状态和变量，支持多会话并发处理。</p>
+                </div>
+                <div class="tech-card">
+                    <h4>🧠 意图识别 (LLM)</h4>
+                    <p>集成Google Gemini API，将自然语言转换为预定义意图，支持实体抽取。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="dsl-info">
+            <h2>DSL语法示例</h2>
+            <pre class="code-block"><code># 步骤定义
+Step welcome
+    Speak "您好，请问有什么可以帮您？"
+    Listen 5, 30
+    Branch "挂号", registration
+    Branch "缴费", payment
+    Default defaultHandler
+
+Step registration
+    Set $department = "内科"
+    Speak "您选择了" + $department
+    Call 创建挂号($department) = $result
+    Exit</code></pre>
+        </section>
+
+        <footer>
+            <p>2025 程序设计实践大作业 - 基于DSL的多业务场景Agent</p>
+            <p>清华大学计算机科学与技术系 - 数据科学与大数据技术专业</p>
+        </footer>
+    </div>
+</body>
+</html>

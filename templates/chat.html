@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ scenario_info.name }} - DSL智能Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <div class="chat-container">
+        <header class="chat-header">
+            <a href="/" class="back-btn">← 返回</a>
+            <div class="header-info">
+                <span class="header-icon">{{ scenario_info.icon }}</span>
+                <div>
+                    <h1>{{ scenario_info.name }}</h1>
+                    <p>{{ scenario_info.description }}</p>
+                </div>
+            </div>
+            <button id="restartBtn" class="restart-btn" title="重新开始">🔄</button>
+        </header>
+
+        <main class="chat-main">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    <div class="message-content">
+                        <p>正在连接智能客服...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-replies" id="quickReplies"></div>
+        </main>
+
+        <footer class="chat-input-area">
+            <div class="input-wrapper">
+                <input type="text" id="userInput" placeholder="请输入您的问题..." autocomplete="off">
+                <button id="sendBtn" class="send-btn">
+                    <span>发送</span>
+                </button>
+            </div>
+            <div class="input-tips">
+                <span id="statusIndicator" class="status-dot"></span>
+                <span id="statusText">连接中...</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const scenario = '{{ scenario }}';
+        let sessionId = null;
+        let isWaitingForResponse = false;
+
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const quickReplies = document.getElementById('quickReplies');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+
+        // 添加消息到聊天窗口
+        function addMessage(content, type = 'bot') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            // 处理多行消息
+            const lines = content.split('\n').filter(line => line.trim());
+            lines.forEach((line, index) => {
+                const p = document.createElement('p');
+                p.textContent = line;
+                contentDiv.appendChild(p);
+            });
+            
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'message-time';
+            timeSpan.textContent = new Date().toLocaleTimeString('zh-CN', {hour: '2-digit', minute: '2-digit'});
+            contentDiv.appendChild(timeSpan);
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 显示快捷回复按钮
+        function showQuickReplies(intents) {
+            quickReplies.innerHTML = '';
+            if (intents && intents.length > 0) {
+                // 只显示前6个意图
+                const displayIntents = intents.slice(0, 6);
+                displayIntents.forEach(intent => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quick-reply-btn';
+                    btn.textContent = intent;
+                    btn.onclick = () => sendMessage(intent);
+                    quickReplies.appendChild(btn);
+                });
+            }
+        }
+
+        // 更新状态
+        function updateStatus(status, text) {
+            statusIndicator.className = `status-dot ${status}`;
+            statusText.textContent = text;
+        }
+
+        // 发送消息
+        async function sendMessage(message = null) {
+            const text = message || userInput.value.trim();
+            if (!text || isWaitingForResponse) return;
+            
+            // 显示用户消息
+            addMessage(text, 'user');
+            userInput.value = '';
+            quickReplies.innerHTML = '';
+            
+            // 显示加载状态
+            isWaitingForResponse = true;
+            updateStatus('loading', '正在处理...');
+            sendBtn.disabled = true;
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        scenario: scenario,
+                        session_id: sessionId,
+                        message: text
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (data.message) {
+                        addMessage(data.message, 'bot');
+                    }
+                    
+                    // 显示快捷回复
+                    if (data.available_intents) {
+                        showQuickReplies(data.available_intents);
+                    }
+                    
+                    // 更新状态
+                    if (data.state === 'FINISHED') {
+                        updateStatus('offline', '对话已结束');
+                        userInput.disabled = true;
+                        sendBtn.disabled = true;
+                    } else if (data.waiting_for_input) {
+                        updateStatus('online', '等待您的回复');
+                    } else {
+                        updateStatus('online', '在线');
+                    }
+                    
+                    // 检查会话是否重启
+                    if (data.session_restarted) {
+                        addMessage('会话已重新开始', 'system');
+                    }
+                } else {
+                    addMessage('抱歉，处理您的请求时出现错误：' + data.error, 'system');
+                    updateStatus('error', '发生错误');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('网络连接出现问题，请稍后重试。', 'system');
+                updateStatus('error', '连接失败');
+            } finally {
+                isWaitingForResponse = false;
+                sendBtn.disabled = false;
+            }
+        }
+
+        // 启动会话
+        async function startSession() {
+            updateStatus('loading', '连接中...');
+            chatMessages.innerHTML = '';
+            addMessage('正在连接智能客服...', 'system');
+            
+            try {
+                const response = await fetch('/api/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        scenario: scenario
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    sessionId = data.session_id;
+                    
+                    // 清除初始消息
+                    chatMessages.innerHTML = '';
+                    
+                    // 显示欢迎消息
+                    if (data.message) {
+                        addMessage(data.message, 'bot');
+                    }
+                    
+                    // 显示快捷回复
+                    if (data.available_intents) {
+                        showQuickReplies(data.available_intents);
+                    }
+                    
+                    updateStatus('online', '在线');
+                    userInput.disabled = false;
+                    sendBtn.disabled = false;
+                    userInput.focus();
+                } else {
+                    addMessage('连接失败：' + data.error, 'system');
+                    updateStatus('error', '连接失败');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('无法连接到服务器，请刷新页面重试。', 'system');
+                updateStatus('error', '连接失败');
+            }
+        }
+
+        // 重新开始会话
+        async function restartSession() {
+            if (sessionId) {
+                try {
+                    await fetch('/api/end', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            scenario: scenario,
+                            session_id: sessionId
+                        })
+                    });
+                } catch (error) {
+                    console.error('Error ending session:', error);
+                }
+            }
+            
+            userInput.disabled = false;
+            sendBtn.disabled = false;
+            quickReplies.innerHTML = '';
+            startSession();
+        }
+
+        // 事件监听
+        sendBtn.addEventListener('click', () => sendMessage());
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        restartBtn.addEventListener('click', restartSession);
+
+        // 页面加载时启动会话
+        document.addEventListener('DOMContentLoaded', startSession);
+        
+        // 页面关闭时结束会话
+        window.addEventListener('beforeunload', () => {
+            if (sessionId) {
+                navigator.sendBeacon('/api/end', JSON.stringify({
+                    scenario: scenario,
+                    session_id: sessionId
+                }));
+            }
+        });
+    </script>
+</body>
+</html>

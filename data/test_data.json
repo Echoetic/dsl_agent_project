@@ -1,0 +1,128 @@
+{
+    "test_cases": {
+        "hospital": {
+            "description": "医院客服测试用例",
+            "scenarios": [
+                {
+                    "name": "正常挂号流程",
+                    "inputs": ["挂号", "内科", "张医生", "是", "确认"],
+                    "expected_intents": ["挂号", "内科", "张医生", "是", "确认"],
+                    "expected_outputs_contain": ["欢迎", "科室", "医生", "缴费", "成功"]
+                },
+                {
+                    "name": "缴费流程",
+                    "inputs": ["缴费", "H20241225001", "确认"],
+                    "expected_intents": ["缴费"],
+                    "expected_outputs_contain": ["缴费", "待缴费"]
+                },
+                {
+                    "name": "取药流程",
+                    "inputs": ["取药", "H20241225001"],
+                    "expected_intents": ["取药"],
+                    "expected_outputs_contain": ["取药", "窗口"]
+                },
+                {
+                    "name": "查询流程",
+                    "inputs": ["查询", "挂号记录"],
+                    "expected_intents": ["查询", "挂号记录"],
+                    "expected_outputs_contain": ["查询", "记录"]
+                },
+                {
+                    "name": "默认处理",
+                    "inputs": ["随便说点什么"],
+                    "expected_intents": [""],
+                    "expected_outputs_contain": ["没有理解", "帮助"]
+                }
+            ]
+        },
+        "restaurant": {
+            "description": "餐厅点餐测试用例",
+            "scenarios": [
+                {
+                    "name": "正常点餐流程",
+                    "inputs": ["点餐", "红烧肉", "米饭", "完成", "确认", "微信"],
+                    "expected_intents": ["点餐", "红烧肉", "米饭", "完成", "确认", "微信"],
+                    "expected_outputs_contain": ["欢迎", "红烧肉", "米饭", "订单", "支付"]
+                },
+                {
+                    "name": "查看菜单",
+                    "inputs": ["菜单"],
+                    "expected_intents": ["菜单"],
+                    "expected_outputs_contain": ["菜单", "红烧肉", "清蒸鱼"]
+                },
+                {
+                    "name": "推荐菜品",
+                    "inputs": ["推荐"],
+                    "expected_intents": ["推荐"],
+                    "expected_outputs_contain": ["推荐", "招牌"]
+                },
+                {
+                    "name": "取消订单",
+                    "inputs": ["点餐", "红烧肉", "取消", "确定"],
+                    "expected_intents": ["点餐", "红烧肉", "取消", "确定"],
+                    "expected_outputs_contain": ["取消"]
+                }
+            ]
+        },
+        "theater": {
+            "description": "剧院售票测试用例",
+            "scenarios": [
+                {
+                    "name": "正常购票流程",
+                    "inputs": ["查询", "天鹅湖", "购买", "A区", "2", "确认", "微信"],
+                    "expected_intents": ["查询", "天鹅湖", "购买", "A区", "2", "确认", "微信"],
+                    "expected_outputs_contain": ["演出", "天鹅湖", "座位", "支付", "成功"]
+                },
+                {
+                    "name": "取票流程",
+                    "inputs": ["取票", "886425"],
+                    "expected_intents": ["取票"],
+                    "expected_outputs_contain": ["取票", "验证"]
+                },
+                {
+                    "name": "会员服务",
+                    "inputs": ["会员", "查询"],
+                    "expected_intents": ["会员", "查询"],
+                    "expected_outputs_contain": ["会员", "积分"]
+                }
+            ]
+        }
+    },
+    "intent_mapping": {
+        "hospital": {
+            "挂号相关": ["挂号", "预约", "看病", "就诊"],
+            "缴费相关": ["缴费", "付款", "交钱", "结账"],
+            "取药相关": ["取药", "拿药", "领药"],
+            "查询相关": ["查询", "查", "看看"]
+        },
+        "restaurant": {
+            "点餐相关": ["点餐", "点菜", "要", "来"],
+            "菜单相关": ["菜单", "菜品", "有什么"],
+            "结账相关": ["结账", "付账", "买单", "付款"],
+            "服务相关": ["服务员", "帮忙", "人工"]
+        },
+        "theater": {
+            "查询相关": ["查询", "演出", "节目", "什么"],
+            "购票相关": ["买票", "购票", "订票", "要票"],
+            "取票相关": ["取票", "领票", "换票"],
+            "会员相关": ["会员", "积分", "充值"]
+        }
+    },
+    "error_cases": [
+        {
+            "name": "空输入",
+            "input": "",
+            "expected_behavior": "silence_handler"
+        },
+        {
+            "name": "无效输入",
+            "input": "asdfghjkl",
+            "expected_behavior": "default_handler"
+        },
+        {
+            "name": "特殊字符",
+            "input": "!@#$%^&*()",
+            "expected_behavior": "default_handler"
+        }
+    ]
+}
