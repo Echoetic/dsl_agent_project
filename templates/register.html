@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - DSL智能Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-header .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .auth-header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        
+        .auth-header p {
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .form-group input.error {
+            border-color: #e74c3c;
+        }
+        
+        .form-group input.valid {
+            border-color: #27ae60;
+        }
+        
+        .form-group .hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+        }
+        
+        .form-group .hint.error {
+            color: #e74c3c;
+        }
+        
+        .form-group .hint.valid {
+            color: #27ae60;
+        }
+        
+        .password-strength {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .password-strength-bar.weak {
+            width: 33%;
+            background: #e74c3c;
+        }
+        
+        .password-strength-bar.medium {
+            width: 66%;
+            background: #f39c12;
+        }
+        
+        .password-strength-bar.strong {
+            width: 100%;
+            background: #27ae60;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #666;
+        }
+        
+        .auth-footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .terms {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .terms a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .terms a:hover {
+            text-decoration: underline;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo">🤖</div>
+                <h1>创建账户</h1>
+                <p>注册一个新账户来使用智能客服系统</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" 
+                           placeholder="请输入用户名（至少3个字符）" required 
+                           autocomplete="username" oninput="validateUsername()">
+                    <div class="hint" id="usernameHint">用户名长度至少3个字符</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" id="email" name="email" 
+                           placeholder="请输入您的邮箱" required 
+                           autocomplete="email" oninput="validateEmail()">
+                    <div class="hint" id="emailHint">请输入有效的邮箱地址</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" 
+                           placeholder="请输入密码（至少6个字符）" required 
+                           autocomplete="new-password" oninput="validatePassword()">
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                    </div>
+                    <div class="hint" id="passwordHint">密码长度至少6个字符</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" 
+                           placeholder="请再次输入密码" required 
+                           autocomplete="new-password" oninput="validateConfirmPassword()">
+                    <div class="hint" id="confirmPasswordHint">请再次输入密码</div>
+                </div>
+                
+                <div class="terms">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <label for="agreeTerms">
+                            我已阅读并同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    注册
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                已有账户？<a href="/login">立即登录</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function validateUsername() {
+            const username = document.getElementById('username').value.trim();
+            const hint = document.getElementById('usernameHint');
+            const input = document.getElementById('username');
+            
+            if (username.length >= 3) {
+                hint.textContent = '✓ 用户名格式正确';
+                hint.className = 'hint valid';
+                input.className = 'valid';
+                return true;
+            } else {
+                hint.textContent = '用户名长度至少3个字符';
+                hint.className = 'hint';
+                input.className = '';
+                return false;
+            }
+        }
+        
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const hint = document.getElementById('emailHint');
+            const input = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailRegex.test(email)) {
+                hint.textContent = '✓ 邮箱格式正确';
+                hint.className = 'hint valid';
+                input.className = 'valid';
+                return true;
+            } else {
+                hint.textContent = '请输入有效的邮箱地址';
+                hint.className = 'hint';
+                input.className = '';
+                return false;
+            }
+        }
+        
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const hint = document.getElementById('passwordHint');
+            const input = document.getElementById('password');
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            
+            // 计算密码强度
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 10) strength++;
+            if (/[A-Z]/.test(password) && /[a-z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            // 更新强度条
+            strengthBar.className = 'password-strength-bar';
+            if (password.length >= 6) {
+                if (strength >= 4) {
+                    strengthBar.classList.add('strong');
+                } else if (strength >= 2) {
+                    strengthBar.classList.add('medium');
+                } else {
+                    strengthBar.classList.add('weak');
+                }
+            }
+            
+            if (password.length >= 6) {
+                hint.textContent = '✓ 密码格式正确';
+                hint.className = 'hint valid';
+                input.className = 'valid';
+                return true;
+            } else {
+                hint.textContent = '密码长度至少6个字符';
+                hint.className = 'hint';
+                input.className = '';
+                return false;
+            }
+        }
+        
+        function validateConfirmPassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const hint = document.getElementById('confirmPasswordHint');
+            const input = document.getElementById('confirmPassword');
+            
+            if (confirmPassword === password && password.length >= 6) {
+                hint.textContent = '✓ 密码匹配';
+                hint.className = 'hint valid';
+                input.className = 'valid';
+                return true;
+            } else if (confirmPassword !== password) {
+                hint.textContent = '两次输入的密码不一致';
+                hint.className = 'hint error';
+                input.className = 'error';
+                return false;
+            } else {
+                hint.textContent = '请再次输入密码';
+                hint.className = 'hint';
+                input.className = '';
+                return false;
+            }
+        }
+        
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const agreeTerms = document.getElementById('agreeTerms').checked;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // 清除之前的错误
+            hideError();
+            hideSuccess();
+            
+            // 验证输入
+            if (!validateUsername() || !validateEmail() || !validatePassword()) {
+                showError('请检查输入信息');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showError('两次输入的密码不一致');
+                return;
+            }
+            
+            if (!agreeTerms) {
+                showError('请同意服务条款和隐私政策');
+                return;
+            }
+            
+            // 禁用按钮，显示加载状态
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>注册中...';
+            
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showSuccess('注册成功！正在跳转到登录页面...');
+                    // 跳转到登录页
+                    setTimeout(() => {
+                        window.location.href = '/login?registered=true';
+                    }, 1500);
+                } else {
+                    showError(data.error || '注册失败，请重试');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '注册';
+                }
+            } catch (error) {
+                showError('网络错误，请稍后重试');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '注册';
+            }
+        }
+        
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+        
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+        
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+        }
+        
+        function hideSuccess() {
+            document.getElementById('successMessage').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

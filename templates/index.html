@@ -6,8 +6,100 @@
     <title>DSL智能Agent系统</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .top-nav .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .top-nav .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .top-nav .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+        
+        .top-nav .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .top-nav .nav-link {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .top-nav .nav-link:hover {
+            background: #f0f0f0;
+        }
+        
+        .top-nav .nav-link.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .top-nav .nav-link.primary:hover {
+            opacity: 0.9;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body {
+            padding-top: 70px;
+        }
+    </style>
 </head>
 <body>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="logo">🤖 DSL智能Agent</div>
+        <div class="user-menu">
+            {% if user %}
+            <div class="user-info">
+                <div class="user-avatar">{{ user.username[0].upper() }}</div>
+                <span>{{ user.username }}</span>
+            </div>
+            <a href="/profile" class="nav-link">个人资料</a>
+            <a href="#" class="nav-link" onclick="handleLogout()">退出</a>
+            {% else %}
+            <a href="/login" class="nav-link">登录</a>
+            <a href="/register" class="nav-link primary">注册</a>
+            {% endif %}
+        </div>
+    </nav>
+
     <div class="container">
         <header class="hero">
             <div class="hero-content">
@@ -17,6 +109,13 @@
                     本系统采用自定义DSL脚本语言描述业务流程，结合Gemini大语言模型进行意图识别，
                     实现灵活可配置的智能对话机器人。
                 </p>
+                {% if not user %}
+                <p style="margin-top: 20px;">
+                    <a href="/register" style="color: white; background: rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                        立即注册，开始体验 →
+                    </a>
+                </p>
+                {% endif %}
             </div>
         </header>
 
@@ -105,8 +204,19 @@ Step registration
 
         <footer>
             <p>2025 程序设计实践大作业 - 基于DSL的多业务场景Agent</p>
-            <p>北京邮电大学 - 数据科学与大数据技术专业</p>
+            <p>北京邮电大学 计算机学院</p>
         </footer>
     </div>
+    
+    <script>
+        async function handleLogout() {
+            try {
+                await fetch('/api/auth/logout', { method: 'POST' });
+                window.location.reload();
+            } catch (error) {
+                alert('登出失败，请重试');
+            }
+        }
+    </script>
 </body>
 </html>
