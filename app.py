@@ -12,7 +12,8 @@ from src.lexer import Lexer
 from src.parser import Parser
 from src.interpreter import Interpreter, InterpreterState
 from src.intent_recognizer import GeminiIntentRecognizer, create_intent_recognizer
-from src.auth import get_auth_service, AuthService
+#from src.local_intent_recognizer import create_intent_recognizer_local as create_intent_recognizer
+from src.auth import get_auth_service, AutshService
 
 app = Flask(__name__)
 app.secret_key = 'dsl_agent_secret_key_2024_secure'

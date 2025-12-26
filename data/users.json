@@ -7,7 +7,17 @@
       "email": "zeshenzhang240@gmail.com",
       "role": "user",
       "created_at": "2025-12-26T09:12:45.702301",
-      "last_login": "2025-12-26T09:13:05.258828",
+      "last_login": "2025-12-26T09:54:43.700316",
+      "is_active": true
+    },
+    "4IPgoaIh4XbnBM7XBnm_XQ": {
+      "user_id": "4IPgoaIh4XbnBM7XBnm_XQ",
+      "username": "Echoetic",
+      "password_hash": "04b85cf9500cb5f4124cfb6bacc27d6c:f0fe79d349cfa06d08fb90abf107326bc9e0431b4c70290106599d6893935880",
+      "email": "179010604@qq.com",
+      "role": "user",
+      "created_at": "2025-12-26T09:27:11.233925",
+      "last_login": "2025-12-26T09:27:24.826376",
       "is_active": true
     }
   }
