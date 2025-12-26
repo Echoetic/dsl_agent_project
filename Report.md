@@ -1192,35 +1192,59 @@ def get_identifier_type(self, word):
 &emsp;&emsp;以下是本项目开发过程中的GIT提交日志（部分）：
 
 ```
-commit 8f2a1b3c (HEAD -> main)
+commit 24004c76eef74360acd5cddeae17f5941ea3aede
 Author: Zhang Zeshen <zeshenzhang240@gmail.com>
-Date:   Fri Dec 26 15:30:00 2025 +0800
+Date:   Fri Dec 26 18:22:31 2025 +0800
 
-    feat: 实现场景动态配置功能
-    
-    - 新增ScenarioManager类
-    - JSON配置文件驱动场景加载
-    - 前端页面动态渲染
+    Update report
 
-commit 7e9d4a2f
+commit 4ddd9e21557f01c90b2513d69ce2da78a03241d7
 Author: Zhang Zeshen <zeshenzhang240@gmail.com>
-Date:   Fri Dec 26 12:00:00 2025 +0800
+Date:   Fri Dec 26 18:00:42 2025 +0800
 
-    feat: 完成本地意图识别器
-    
-    - 关键词匹配、模糊匹配、TF-IDF相似度
-    - 可配置的权重参数
-    - 完整单元测试
+    Update report
 
-commit 6c8b3a1e
+commit f36d36693aa28e4d2989402d3c0b34306512473b
 Author: Zhang Zeshen <zeshenzhang240@gmail.com>
-Date:   Fri Dec 26 08:00:00 2025 +0800
+Date:   Fri Dec 26 17:04:23 2025 +0800
 
-    feat: 完成用户认证系统
-    
-    - PBKDF2密码哈希
-    - 会话令牌管理
-    - 认证API接口
+    Extended Web
+
+commit c9b84bde5079ab3eaa97a65c4984079c875c06fd
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 10:31:17 2025 +0800
+
+    Add local recognizer
+
+commit 43687a703eb98175799542a303f73984db4e0207
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 09:56:44 2025 +0800
+
+    Add local_recognizer
+
+commit c609892a19dc787116e0155a0b97d7c80cb9cc0e
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 09:15:40 2025 +0800
+
+    Add register
+
+commit f34f94244616f42a0d9ee3ea14088f372a03f97a
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 08:52:41 2025 +0800
+
+    Add AutomateTest
+
+commit b2d15d8335af8d1654d4391b03904cbffe91d89b
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 01:19:58 2025 +0800
+
+    Update Report
+
+commit 598b0cfbd16d20be706909708482b5c6e5b9f3a5
+Author: Zhang Zeshen <zeshenzhang240@gmail.com>
+Date:   Fri Dec 26 01:07:47 2025 +0800
+
+    Paste gitlog
 
 commit 669d856c6267815b360780035633ebfcb37eb2d1
 Author: Zhang Zeshen <zeshenzhang240@gmail.com>
@@ -1269,6 +1293,7 @@ Author: Zhang Zeshen <zeshenzhang240@gmail.com>
 Date:   Thu Dec 25 21:39:10 2025 +0800
 
     first commit
+
 ```
 
 ---
