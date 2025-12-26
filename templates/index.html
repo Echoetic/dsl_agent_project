@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSL智能Agent系统</title>
+    <title>{{ site.title if site else 'DSL智能Agent系统' }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -79,12 +79,54 @@
         body {
             padding-top: 70px;
         }
+        
+        /* 动态场景卡片样式 */
+        .scenario-card {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scenario-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--card-gradient);
+        }
+        
+        .scenario-card .card-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .scenario-card h3 {
+            color: var(--card-color);
+        }
+        
+        .scenario-card .btn {
+            background: var(--card-gradient);
+            color: white;
+        }
+        
+        /* 空状态 */
+        .no-scenarios {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .no-scenarios .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <!-- 顶部导航 -->
     <nav class="top-nav">
-        <div class="logo">🤖 DSL智能Agent</div>
+        <div class="logo">🤖 {{ site.title if site else 'DSL智能Agent' }}</div>
         <div class="user-menu">
             {% if user %}
             <div class="user-info">
@@ -103,11 +145,10 @@
     <div class="container">
         <header class="hero">
             <div class="hero-content">
-                <h1>🤖 DSL智能Agent系统</h1>
-                <p class="subtitle">基于领域特定语言的多业务场景智能客服</p>
+                <h1>🤖 {{ site.title if site else 'DSL智能Agent系统' }}</h1>
+                <p class="subtitle">{{ site.subtitle if site else '基于领域特定语言的多业务场景智能客服' }}</p>
                 <p class="description">
-                    本系统采用自定义DSL脚本语言描述业务流程，结合Gemini大语言模型进行意图识别，
-                    实现灵活可配置的智能对话机器人。
+                    {{ site.description if site else '本系统采用自定义DSL脚本语言描述业务流程，结合大语言模型进行意图识别，实现灵活可配置的智能对话机器人。' }}
                 </p>
                 {% if not user %}
                 <p style="margin-top: 20px;">
@@ -121,46 +162,33 @@
 
         <main class="scenarios">
             <h2>选择业务场景</h2>
+            
+            {% if scenarios and scenarios|length > 0 %}
             <div class="scenario-grid">
-                <a href="/chat/hospital" class="scenario-card hospital">
-                    <div class="card-icon">🏥</div>
-                    <h3>医院智能客服</h3>
-                    <p>看病挂号、缴费、取药一站式服务</p>
+                {% for scenario in scenarios %}
+                <a href="/chat/{{ scenario.id }}" class="scenario-card" 
+                   style="--card-color: {{ scenario.color }}; --card-gradient: {{ scenario.gradient }};">
+                    <div class="card-icon">{{ scenario.icon }}</div>
+                    <h3>{{ scenario.name }}</h3>
+                    <p>{{ scenario.description }}</p>
+                    {% if scenario.features and scenario.features|length > 0 %}
                     <ul class="features">
-                        <li>智能科室推荐</li>
-                        <li>在线预约挂号</li>
-                        <li>费用查询缴纳</li>
-                        <li>取药进度查询</li>
+                        {% for feature in scenario.features %}
+                        <li>{{ feature }}</li>
+                        {% endfor %}
                     </ul>
+                    {% endif %}
                     <span class="btn">开始对话 →</span>
                 </a>
-
-                <a href="/chat/restaurant" class="scenario-card restaurant">
-                    <div class="card-icon">🍽️</div>
-                    <h3>餐厅点餐助手</h3>
-                    <p>智能点餐、菜品推荐、便捷付账</p>
-                    <ul class="features">
-                        <li>菜单浏览推荐</li>
-                        <li>语音点餐下单</li>
-                        <li>订单管理修改</li>
-                        <li>多种支付方式</li>
-                    </ul>
-                    <span class="btn">开始对话 →</span>
-                </a>
-
-                <a href="/chat/theater" class="scenario-card theater">
-                    <div class="card-icon">🎭</div>
-                    <h3>剧院售票服务</h3>
-                    <p>演出查询、在线购票、便捷取票</p>
-                    <ul class="features">
-                        <li>演出信息查询</li>
-                        <li>座位选择购票</li>
-                        <li>电子票取票</li>
-                        <li>会员积分服务</li>
-                    </ul>
-                    <span class="btn">开始对话 →</span>
-                </a>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="no-scenarios">
+                <div class="icon">📭</div>
+                <h3>暂无可用场景</h3>
+                <p>请在 config/scenarios.json 中配置场景，或在 scripts/ 目录添加 DSL 脚本</p>
+            </div>
+            {% endif %}
         </main>
 
         <section class="tech-info">
@@ -203,8 +231,8 @@ Step registration
         </section>
 
         <footer>
-            <p>2025 程序设计实践大作业 - 基于DSL的多业务场景Agent</p>
-            <p>北京邮电大学 计算机学院</p>
+            <p>{{ site.footer.line1 if site and site.footer else '2025 程序设计实践大作业 - 基于DSL的多业务场景Agent' }}</p>
+            <p>{{ site.footer.line2 if site and site.footer else '北京邮电大学 计算机学院' }}</p>
         </footer>
     </div>
     

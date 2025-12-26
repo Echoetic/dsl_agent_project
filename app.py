@@ -1,7 +1,7 @@
 """
 Flask Web应用
 基于DSL的多业务场景Agent
-包含用户认证功能
+包含用户认证功能和动态场景管理
 """
 
 import os
@@ -12,15 +12,23 @@ from src.lexer import Lexer
 from src.parser import Parser
 from src.interpreter import Interpreter, InterpreterState
 from src.intent_recognizer import GeminiIntentRecognizer, create_intent_recognizer
-#from src.local_intent_recognizer import create_intent_recognizer_local as create_intent_recognizer
 from src.auth import get_auth_service, AuthService
+from src.scenario_manager import get_scenario_manager, init_scenario_manager
 
 app = Flask(__name__)
 app.secret_key = 'dsl_agent_secret_key_2024_secure'
 
 # 配置
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AIzaSyDQJo3RmKSiAfj_CtVqFRCNPzLA-wCVLd0')
-SCRIPTS_DIR = os.path.join(os.path.dirname(__file__), 'scripts')
+BASE_DIR = os.path.dirname(__file__)
+SCRIPTS_DIR = os.path.join(BASE_DIR, 'scripts')
+CONFIG_DIR = os.path.join(BASE_DIR, 'config')
+
+# 初始化场景管理器
+scenario_manager = init_scenario_manager(
+    config_path=os.path.join(CONFIG_DIR, 'scenarios.json'),
+    scripts_dir=SCRIPTS_DIR
+)
 
 # 全局存储
 scripts_cache = {}  # 缓存解析后的脚本
@@ -82,9 +90,10 @@ def load_script(scenario: str):
     if scenario in scripts_cache:
         return scripts_cache[scenario]
     
-    script_path = os.path.join(SCRIPTS_DIR, f'{scenario}.dsl')
-    if not os.path.exists(script_path):
-        raise FileNotFoundError(f"脚本文件不存在: {script_path}")
+    # 使用场景管理器获取脚本路径
+    script_path = scenario_manager.get_script_path(scenario)
+    if not script_path or not os.path.exists(script_path):
+        raise FileNotFoundError(f"脚本文件不存在: {scenario}")
     
     with open(script_path, 'r', encoding='utf-8') as f:
         source = f.read()
@@ -178,6 +187,7 @@ def api_login():
         username = data.get('username', '').strip()
         password = data.get('password', '')
         
+        # 获取客户端信息
         ip_address = request.remote_addr
         user_agent = request.headers.get('User-Agent', '')
         
@@ -188,6 +198,7 @@ def api_login():
         if success:
             # 将认证会话ID存入Flask session
             session['auth_session_id'] = auth_session_id
+            
             return jsonify({
                 'success': True,
                 'message': message,
@@ -213,7 +224,9 @@ def api_logout():
         auth_session_id = session.get('auth_session_id')
         if auth_session_id:
             auth_service.logout(auth_session_id)
-            session.pop('auth_session_id', None)
+        
+        # 清除Flask session
+        session.pop('auth_session_id', None)
         
         return jsonify({
             'success': True,
@@ -283,26 +296,57 @@ def api_change_password():
 def index():
     """首页"""
     user = get_current_user()
-    return render_template('index.html', user=user)
+    scenarios = scenario_manager.get_enabled_scenarios()
+    site_config = scenario_manager.get_site_config()
+    
+    return render_template('index.html', 
+                         user=user, 
+                         scenarios=scenarios,
+                         site=site_config)
 
 
 @app.route('/chat/<scenario>')
 @login_required
 def chat_page(scenario):
     """聊天页面（需要登录）"""
-    scenarios = {
-        'hospital': {'name': '医院智能客服', 'icon': '🏥', 'description': '看病挂号、缴费、取药'},
-        'restaurant': {'name': '餐厅点餐助手', 'icon': '🍽️', 'description': '点餐、查看菜单、付账'},
-        'theater': {'name': '剧院售票服务', 'icon': '🎭', 'description': '查询演出、购票、取票'}
-    }
-    
-    if scenario not in scenarios:
+    # 检查场景是否存在
+    if not scenario_manager.scenario_exists(scenario):
         return "场景不存在", 404
+    
+    scenario_config = scenario_manager.get_scenario(scenario)
     
     return render_template('chat.html', 
                          scenario=scenario, 
-                         scenario_info=scenarios[scenario],
+                         scenario_info=scenario_config,
                          user=request.current_user)
+
+
+# ==================== 场景API路由 ====================
+
+@app.route('/api/scenarios')
+def api_scenarios():
+    """获取所有可用场景"""
+    scenarios = scenario_manager.get_scenarios_for_api()
+    return jsonify({
+        'success': True,
+        'scenarios': scenarios
+    })
+
+
+@app.route('/api/scenario/<scenario_id>')
+def api_scenario_detail(scenario_id):
+    """获取场景详情"""
+    scenario = scenario_manager.get_scenario(scenario_id)
+    if scenario:
+        return jsonify({
+            'success': True,
+            'scenario': scenario.to_dict()
+        })
+    else:
+        return jsonify({
+            'success': False,
+            'error': '场景不存在'
+        }), 404
 
 
 # ==================== 聊天API路由 ====================
@@ -314,6 +358,13 @@ def start_session():
     try:
         data = request.json
         scenario = data.get('scenario', 'hospital')
+        
+        # 验证场景是否存在
+        if not scenario_manager.scenario_exists(scenario):
+            return jsonify({
+                'success': False,
+                'error': f'场景不存在: {scenario}'
+            }), 404
         
         # 生成会话ID（包含用户ID以便追踪）
         user = request.current_user
@@ -359,6 +410,13 @@ def chat():
                 'success': False,
                 'error': '会话ID不能为空'
             }), 400
+        
+        # 验证场景是否存在
+        if not scenario_manager.scenario_exists(scenario):
+            return jsonify({
+                'success': False,
+                'error': f'场景不存在: {scenario}'
+            }), 404
         
         # 获取解释器
         interpreter = get_interpreter(scenario, session_id)
@@ -436,9 +494,12 @@ def list_scripts():
     for filename in os.listdir(SCRIPTS_DIR):
         if filename.endswith('.dsl'):
             name = filename[:-4]
+            scenario = scenario_manager.get_scenario(name)
             scripts.append({
                 'name': name,
-                'filename': filename
+                'filename': filename,
+                'display_name': scenario.name if scenario else name,
+                'enabled': scenario.enabled if scenario else True
             })
     return jsonify(scripts)
 
@@ -448,7 +509,10 @@ def list_scripts():
 def get_script(name):
     """获取脚本内容"""
     try:
-        script_path = os.path.join(SCRIPTS_DIR, f'{name}.dsl')
+        script_path = scenario_manager.get_script_path(name)
+        if not script_path:
+            script_path = os.path.join(SCRIPTS_DIR, f'{name}.dsl')
+        
         with open(script_path, 'r', encoding='utf-8') as f:
             content = f.read()
         return jsonify({
@@ -501,9 +565,20 @@ def parse_script():
         }), 500
 
 
+@app.route('/api/site-config')
+def api_site_config():
+    """获取站点配置"""
+    site_config = scenario_manager.get_site_config()
+    return jsonify({
+        'success': True,
+        'config': site_config.to_dict()
+    })
+
+
 if __name__ == '__main__':
-    # 确保脚本目录存在
+    # 确保目录存在
     os.makedirs(SCRIPTS_DIR, exist_ok=True)
+    os.makedirs(CONFIG_DIR, exist_ok=True)
     
     # 启动应用
     app.run(host='0.0.0.0', port=5000, debug=True)
