@@ -384,19 +384,19 @@
         <header class="report-header">
             <h1 class="report-title">DSL Agent 测试报告</h1>
             <div class="report-meta">
-                <span>📅 生成时间: 2025-12-25 23:29:16</span>
-                <span>⏱️ 总耗时: 0.032秒</span>
+                <span>📅 生成时间: 2025-12-30 00:31:06</span>
+                <span>⏱️ 总耗时: 5.304秒</span>
                 <span>📈 通过率: 100.0%</span>
             </div>
         </header>
         
         <section class="summary-section">
             <div class="summary-card total">
-                <div class="summary-number">24</div>
+                <div class="summary-number">103</div>
                 <div class="summary-label">总测试数</div>
             </div>
             <div class="summary-card passed">
-                <div class="summary-number">24</div>
+                <div class="summary-number">103</div>
                 <div class="summary-label">通过</div>
             </div>
             <div class="summary-card failed">
@@ -416,10 +416,10 @@
         <section class="progress-section">
             <h3 class="chart-title">测试执行进度</h3>
             <div class="progress-bar-container">
-                <div class="progress-bar passed" style="width: 100.0%">24</div>
+                <div class="progress-bar passed" style="width: 100.0%">103</div>
             </div>
             <div class="progress-legend">
-                <div class="legend-item"><span class="legend-dot passed"></span>通过 (24)</div>
+                <div class="legend-item"><span class="legend-dot passed"></span>通过 (103)</div>
                 <div class="legend-item"><span class="legend-dot failed"></span>失败 (0)</div>
                 <div class="legend-item"><span class="legend-dot errors"></span>错误 (0)</div>
                 <div class="legend-item"><span class="legend-dot skipped"></span>跳过 (0)</div>
@@ -442,6 +442,396 @@
             
         <div class="suite-section">
             <div class="suite-header">
+                <div class="suite-name">TestAuthService</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 14</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_change_password</div>
+                <div class="test-description">测试修改密码</div>
+                
+            </div>
+            <div class="test-duration">50.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_change_password_wrong_old</div>
+                <div class="test-description">测试修改密码时旧密码错误</div>
+                
+            </div>
+            <div class="test-duration">25.1ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_login_nonexistent_user</div>
+                <div class="test-description">测试用户不存在</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_login_success</div>
+                <div class="test-description">测试登录成功</div>
+                
+            </div>
+            <div class="test-duration">14.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_login_wrong_password</div>
+                <div class="test-description">测试密码错误</div>
+                
+            </div>
+            <div class="test-duration">16.6ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_logout</div>
+                <div class="test-description">测试登出</div>
+                
+            </div>
+            <div class="test-duration">11.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_duplicate_email</div>
+                <div class="test-description">测试重复邮箱</div>
+                
+            </div>
+            <div class="test-duration">12.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_duplicate_username</div>
+                <div class="test-description">测试重复用户名</div>
+                
+            </div>
+            <div class="test-duration">10.1ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_invalid_email</div>
+                <div class="test-description">测试无效邮箱</div>
+                
+            </div>
+            <div class="test-duration">0.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_short_password</div>
+                <div class="test-description">测试密码太短</div>
+                
+            </div>
+            <div class="test-duration">3.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_short_username</div>
+                <div class="test-description">测试用户名太短</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_register_success</div>
+                <div class="test-description">测试注册成功</div>
+                
+            </div>
+            <div class="test-duration">7.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_validate_invalid_session</div>
+                <div class="test-description">测试无效会话验证</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_validate_session</div>
+                <div class="test-description">测试会话验证</div>
+                
+            </div>
+            <div class="test-duration">22.4ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestPasswordHasher</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 5</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_hash_different_passwords</div>
+                <div class="test-description">测试不同密码产生不同哈希</div>
+                
+            </div>
+            <div class="test-duration">11.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_hash_password</div>
+                <div class="test-description">测试密码哈希</div>
+                
+            </div>
+            <div class="test-duration">11.8ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_verify_invalid_hash</div>
+                <div class="test-description">测试无效哈希值</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_verify_password_correct</div>
+                <div class="test-description">测试正确密码验证</div>
+                
+            </div>
+            <div class="test-duration">10.1ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_verify_password_incorrect</div>
+                <div class="test-description">测试错误密码验证</div>
+                
+            </div>
+            <div class="test-duration">16.6ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestSessionManager</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 8</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_session</div>
+                <div class="test-description">测试创建会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_destroy_session</div>
+                <div class="test-description">测试销毁会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_destroy_user_sessions</div>
+                <div class="test-description">测试销毁用户所有会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_get_nonexistent_session</div>
+                <div class="test-description">测试获取不存在的会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_get_session</div>
+                <div class="test-description">测试获取会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_get_user_sessions</div>
+                <div class="test-description">测试获取用户所有会话</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_refresh_session</div>
+                <div class="test-description">测试刷新会话</div>
+                
+            </div>
+            <div class="test-duration">2502.9ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_session_expiry</div>
+                <div class="test-description">测试会话过期</div>
+                
+            </div>
+            <div class="test-duration">2500.4ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestUserModel</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 1</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_user_to_dict</div>
+                <div class="test-description">测试用户转字典（不包含密码）</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestUserStore</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 6</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_duplicate_user</div>
+                <div class="test-description">测试创建重复用户</div>
+                
+            </div>
+            <div class="test-duration">3.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_user</div>
+                <div class="test-description">测试创建用户</div>
+                
+            </div>
+            <div class="test-duration">2.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_delete_user</div>
+                <div class="test-description">测试删除用户</div>
+                
+            </div>
+            <div class="test-duration">2.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_get_user_by_email</div>
+                <div class="test-description">测试按邮箱查找</div>
+                
+            </div>
+            <div class="test-duration">2.5ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_get_user_by_username</div>
+                <div class="test-description">测试按用户名查找</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_update_user</div>
+                <div class="test-description">测试更新用户</div>
+                
+            </div>
+            <div class="test-duration">2.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
                 <div class="suite-name">TestExpressionEvaluation</div>
                 <div class="suite-stats"><span class="suite-stat passed">✓ 2</span></div>
             </div>
@@ -454,7 +844,7 @@
                 <div class="test-description">测试算术运算</div>
                 
             </div>
-            <div class="test-duration">0.7ms</div>
+            <div class="test-duration">1.0ms</div>
         </div>
         
         <div class="test-case">
@@ -473,7 +863,7 @@
         <div class="suite-section">
             <div class="suite-header">
                 <div class="suite-name">TestIntegration</div>
-                <div class="suite-stats"><span class="suite-stat passed">✓ 3</span></div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 8</span></div>
             </div>
             <div class="suite-content">
                 
@@ -484,7 +874,7 @@
                 <div class="test-description">测试医院脚本</div>
                 
             </div>
-            <div class="test-duration">9.0ms</div>
+            <div class="test-duration">10.9ms</div>
         </div>
         
         <div class="test-case">
@@ -494,7 +884,7 @@
                 <div class="test-description">测试餐厅脚本</div>
                 
             </div>
-            <div class="test-duration">11.0ms</div>
+            <div class="test-duration">12.2ms</div>
         </div>
         
         <div class="test-case">
@@ -504,7 +894,57 @@
                 <div class="test-description">测试剧院脚本</div>
                 
             </div>
-            <div class="test-duration">11.0ms</div>
+            <div class="test-duration">15.1ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_fuzzy_matching</div>
+                <div class="test-description">测试模糊匹配</div>
+                
+            </div>
+            <div class="test-duration">2.4ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_hospital_scenario</div>
+                <div class="test-description">测试医院场景完整流程</div>
+                
+            </div>
+            <div class="test-duration">2.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_restaurant_scenario</div>
+                <div class="test-description">测试餐厅场景完整流程</div>
+                
+            </div>
+            <div class="test-duration">3.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_robustness</div>
+                <div class="test-description">测试鲁棒性</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_theater_scenario</div>
+                <div class="test-description">测试剧院场景完整流程</div>
+                
+            </div>
+            <div class="test-duration">3.5ms</div>
         </div>
         
             </div>
@@ -524,7 +964,7 @@
                 <div class="test-description">测试退出状态</div>
                 
             </div>
-            <div class="test-duration">0.3ms</div>
+            <div class="test-duration">0.0ms</div>
         </div>
         
         <div class="test-case">
@@ -544,7 +984,7 @@
                 <div class="test-description">测试启动会话</div>
                 
             </div>
-            <div class="test-duration">0.0ms</div>
+            <div class="test-duration">1.0ms</div>
         </div>
         
         <div class="test-case">
@@ -694,7 +1134,7 @@
                 <div class="test-description">测试Branch语句解析</div>
                 
             </div>
-            <div class="test-duration">0.0ms</div>
+            <div class="test-duration">1.0ms</div>
         </div>
         
         <div class="test-case">
@@ -740,6 +1180,476 @@
             </div>
         </div>
         
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestCreateLocalRecognizer</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 4</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_generic_recognizer</div>
+                <div class="test-description">测试创建通用识别器</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_hospital_recognizer</div>
+                <div class="test-description">测试创建医院识别器</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_restaurant_recognizer</div>
+                <div class="test-description">测试创建餐厅识别器</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_create_theater_recognizer</div>
+                <div class="test-description">测试创建剧院识别器</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestIntentLibrary</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 5</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_common_intents_exist</div>
+                <div class="test-description">测试通用意图存在</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_hospital_intents_exist</div>
+                <div class="test-description">测试医院意图存在</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_intent_has_keywords</div>
+                <div class="test-description">测试意图有关键词</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_restaurant_intents_exist</div>
+                <div class="test-description">测试餐厅意图存在</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_theater_intents_exist</div>
+                <div class="test-description">测试剧院意图存在</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestLocalIntentRecognizer</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 7</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_available_intents_filter</div>
+                <div class="test-description">测试可用意图过滤</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_confidence_score</div>
+                <div class="test-description">测试置信度分数</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_empty_input</div>
+                <div class="test-description">测试空输入</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_keyword_match</div>
+                <div class="test-description">测试关键词匹配</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_no_match</div>
+                <div class="test-description">测试无匹配</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_pattern_match</div>
+                <div class="test-description">测试正则匹配</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_priority</div>
+                <div class="test-description">测试优先级</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestLocalIntentRecognizerAdapter</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 3</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_recognize_interface</div>
+                <div class="test-description">测试识别接口</div>
+                
+            </div>
+            <div class="test-duration">2.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_recognize_returns_available_intent</div>
+                <div class="test-description">测试返回可用意图</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_recognize_silence</div>
+                <div class="test-description">测试空输入返回silence</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestSimilarityCalculator</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 11</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_cosine_similarity_identical</div>
+                <div class="test-description">测试相同向量的余弦相似度</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_cosine_similarity_orthogonal</div>
+                <div class="test-description">测试正交向量</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_edit_distance_similarity_different</div>
+                <div class="test-description">测试不同字符串</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_edit_distance_similarity_identical</div>
+                <div class="test-description">测试相同字符串的相似度</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_edit_distance_similarity_similar</div>
+                <div class="test-description">测试相似字符串</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_jaccard_similarity_empty</div>
+                <div class="test-description">测试空集合</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_jaccard_similarity_identical</div>
+                <div class="test-description">测试相同集合的Jaccard相似度</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_jaccard_similarity_partial</div>
+                <div class="test-description">测试部分重叠集合</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_levenshtein_distance_different</div>
+                <div class="test-description">测试不同字符串的编辑距离</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_levenshtein_distance_empty</div>
+                <div class="test-description">测试空字符串的编辑距离</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_levenshtein_distance_identical</div>
+                <div class="test-description">测试相同字符串的编辑距离</div>
+                
+            </div>
+            <div class="test-duration">1.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestTFIDFVectorizer</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 3</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_fit</div>
+                <div class="test-description">测试训练</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_transform</div>
+                <div class="test-description">测试转换</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_transform_empty</div>
+                <div class="test-description">测试空文本转换</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
+        <div class="suite-section">
+            <div class="suite-header">
+                <div class="suite-name">TestTextPreprocessor</div>
+                <div class="suite-stats"><span class="suite-stat passed">✓ 7</span></div>
+            </div>
+            <div class="suite-content">
+                
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_extract_keywords</div>
+                <div class="test-description">测试关键词提取</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_preprocess_basic</div>
+                <div class="test-description">测试基本预处理</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_preprocess_empty</div>
+                <div class="test-description">测试空文本</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_preprocess_punctuation</div>
+                <div class="test-description">测试标点符号去除</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_remove_stopwords</div>
+                <div class="test-description">测试停用词去除</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_tokenize_chinese</div>
+                <div class="test-description">测试中文分词</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+        <div class="test-case">
+            <div class="test-status passed">✓</div>
+            <div class="test-info">
+                <div class="test-name">test_tokenize_mixed</div>
+                <div class="test-description">测试中英混合分词</div>
+                
+            </div>
+            <div class="test-duration">0.0ms</div>
+        </div>
+        
+            </div>
+        </div>
+        
         </section>
         
         <footer class="footer">
@@ -756,7 +1666,7 @@
             data: {
                 labels: ['通过', '失败', '错误', '跳过'],
                 datasets: [{
-                    data: [24, 0, 0, 0],
+                    data: [103, 0, 0, 0],
                     backgroundColor: ['#28a745', '#dc3545', '#ffc107', '#17a2b8'],
                     borderWidth: 0
                 }]
@@ -776,21 +1686,21 @@
         new Chart(suiteCtx, {
             type: 'bar',
             data: {
-                labels: ['ExpressionEvaluation', 'Integration', 'Interpreter', 'Lexer', 'MockIntentRecognizer', 'Parser'],
+                labels: ['AuthService', 'PasswordHasher', 'SessionManager', 'UserModel', 'UserStore', 'ExpressionEvaluation', 'Integration', 'Interpreter', 'Lexer', 'MockIntentRecognizer', 'Parser', 'CreateLocalRecognizer', 'IntentLibrary', 'LocalIntentRecognizer', 'LocalIntentRecognizerAdapter', 'SimilarityCalculator', 'TFIDFVectorizer', 'TextPreprocessor'],
                 datasets: [
                     {
                         label: '通过',
-                        data: [2, 3, 4, 7, 3, 5],
+                        data: [14, 5, 8, 1, 6, 2, 8, 4, 7, 3, 5, 4, 5, 7, 3, 11, 3, 7],
                         backgroundColor: '#28a745'
                     },
                     {
                         label: '失败',
-                        data: [0, 0, 0, 0, 0, 0],
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         backgroundColor: '#dc3545'
                     },
                     {
                         label: '错误',
-                        data: [0, 0, 0, 0, 0, 0],
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         backgroundColor: '#ffc107'
                     }
                 ]
